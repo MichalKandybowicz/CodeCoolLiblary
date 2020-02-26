@@ -35,6 +35,7 @@ def index(request):
 class BookListView(generic.ListView):
     template_name = "book_list.html"
     model = Book
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(BookListView, self).get_context_data(**kwargs)
