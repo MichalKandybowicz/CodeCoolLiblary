@@ -15,9 +15,9 @@ class Author(models.Model):
     class Meta:
         ordering = ['last_name', 'first_name']
 
-    def get_absolute_url(self):
-        """Returns the url to access a particular author instance."""
-        return reverse('author-detail', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     """Returns the url to access a particular author instance."""
+    #     return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""
@@ -27,6 +27,10 @@ class Author(models.Model):
 class Genre(models.Model):
     """Model representing a book genre."""
     name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular author instance."""
+        return reverse('genre-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""

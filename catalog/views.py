@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
 
-from catalog.models import Book, Author, BookInstance
+from catalog.models import Book, Author, BookInstance, Genre
 from django.views import generic
 
 
@@ -40,7 +40,6 @@ class BookListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(BookListView, self).get_context_data(**kwargs)
         context['books_list'] = Book.objects.all()
-        print(context)
         return context
 
 
@@ -55,3 +54,30 @@ class BookDetailView(generic.DetailView):
             raise Http404('Book does not exist')
 
         return render(request, 'book_detail.html', context={'book': book})
+
+
+# todo: add class for GenreListView and GenreDetailView
+class GenreListView(generic.ListView):
+    template_name = "genre_list.html"
+    model = Genre
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(GenreListView, self).get_context_data(**kwargs)
+        context['genre_list'] = Genre.objects.all()
+        print(context)
+        return context
+
+
+class GenreDetailView(generic.DetailView):
+    model = Book
+    template_name = "genre_detail.html"
+
+    def genre_detail_view(request, pk):
+        try:
+            book = Book.objects.filter(genre=pk)
+        except Book.DoesNotExist:
+            raise Http404('Book does not exist')
+
+        return render(request, 'genre_detail.html', context={'book': book})
+
