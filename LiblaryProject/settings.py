@@ -26,6 +26,7 @@ SECRET_KEY = '-c2n^1_$rlvv(wthuko^i%lozoxxw2&4fmtdrr$4#5_8d1cs8v'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+SESSION_SAVE_EVERY_REQUEST = True
 
 
 # Application definition
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'catalog',
+
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'LiblaryProject.urls'
