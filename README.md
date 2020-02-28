@@ -31,6 +31,11 @@ To get this project up and running locally on your computer:
 ### TODO
 
 All task to do in next version
-1. Book history (% loan time )
-2. Alert to user if he dont back book in time (mail?)
-3. User can propose books to bay
+1. Register with google acc 
+```
+https://medium.com/trabe/oauth-authentication-in-django-with-social-auth-c67a002479c1
+``` 
+2. Add reset password (email)
+3. Book history (% loan time )
+4. Alert to user if he dont back book in time (mail?)
+5. User can propose books to bay
