@@ -10,3 +10,6 @@ urlpatterns = [
     # fixme: genre/<int:pk> to genre/<str:pk> ??
     # path('genre/<int:pk>', views.GenreBooksListView.as_view(), name='genre-detail'),
 ]
+urlpatterns += [
+    path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+]

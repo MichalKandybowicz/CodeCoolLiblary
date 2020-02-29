@@ -1,15 +1,14 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog.models import Book, Author, BookInstance, Genre
 from django.views import generic
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
-
 # Create your views here.
-
 
 def index(request):
     """View function for home page of site."""
@@ -85,3 +84,12 @@ class GenreListView(generic.ListView):
 #             raise Http404('Book does not exist')
 #
 #         return render(request, 'book_detail.html', context={'books_list': books})
+
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based view listing books on loan to current user."""
+    model = BookInstance
+    template_name = 'bookinstance_list_borrowed_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
