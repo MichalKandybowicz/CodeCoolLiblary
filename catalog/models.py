@@ -101,6 +101,10 @@ class BookInstance(models.Model):
         ordering = ['due_back']
         permissions = (("can_mark_returned", "Set book as returned"),)
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular author instance."""
+        return reverse('borrow', args=[str(self.id)])
+
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.book.title} ,  {self.book.author.first_name} ,  {self.book.genre.get()}'
