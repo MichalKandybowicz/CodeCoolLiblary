@@ -1,7 +1,5 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog.models import Book, Author, BookInstance, Genre
 from django.views import generic
 from django.contrib.auth.decorators import permission_required
@@ -9,12 +7,13 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from catalog.forms import RenewBookForm
-import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+import datetime
+
 
 # Create your views here.
-
 def index(request):
     """View function for home page of site."""
 
@@ -142,3 +141,9 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'book_renew_librarian.html', context)
+
+
+class BookCreate(CreateView):
+    model = Book
+    fields = '__all__'
+    template_name = 'add_book_form.html'
