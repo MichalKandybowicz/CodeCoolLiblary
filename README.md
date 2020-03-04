@@ -5,7 +5,7 @@ This web application creates an online catalog for a small local library, where 
 The main features that have currently been implemented are:
 
 * There are models for books, book copies, genre, language and authors.
-* Users can view list and detail information for books and authors.
+* Users can view list and detail information for books.
 * Admin users can create and manage models. The admin has been optimised (the basic registration is present in admin.py, but commented out).
 
 
@@ -31,11 +31,14 @@ To get this project up and running locally on your computer:
 ### TODO
 
 All task to do in next version
-1. Register with google acc 
+- Register with google acc *
+- make list with book (by genre)
+- back books system
+- Add reset password (email)
+- Book history (% loan time )
+- Alert to user if he dont back book in time (mail?)
+
 ```
+Link with tutorial (google acc connect)
 https://medium.com/trabe/oauth-authentication-in-django-with-social-auth-c67a002479c1
 ``` 
-2. Add reset password (email)
-3. Book history (% loan time )
-4. Alert to user if he dont back book in time (mail?)
-5. User can propose books to bay
