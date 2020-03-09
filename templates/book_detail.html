@@ -20,7 +20,7 @@
           {% if copy.status == 'a' %}
 
               {% if perms.catalog.can_mark_returned %}
-                  <a href="{% url 'borrow' copy.id %}">Renew</a>
+                  <a href="{% url 'borrow' copy.id %}">Borrow</a>
               {% endif %}
 
           {% endif %}

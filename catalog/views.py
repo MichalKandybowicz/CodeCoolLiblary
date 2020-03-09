@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from catalog.forms import RenewBookForm
+from catalog.forms import RenewBookForm, BorrowBookForm, BackBookForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -151,7 +151,7 @@ def borrow_book(request, pk):
     book_instance = get_object_or_404(BookInstance, pk=pk)
     # If this is a POST request then process the Form data
     if request.method == 'POST':
-        form = RenewBookForm(request.POST)
+        form = BorrowBookForm(request.POST)
         # Check if the form is valid:
         if form.is_valid():
             book_instance.borrower = request.user
@@ -162,13 +162,36 @@ def borrow_book(request, pk):
             return HttpResponseRedirect(reverse('all-borrowed'))
     # If this is a GET (or any other method) create the default form.
     else:
-        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=1)
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
 
     context = {
         'form': form,
         'book_instance': book_instance,
     }
-    print(context)
+    return render(request, 'borrow_book.html', context)
 
+
+@permission_required('catalog.can_mark_returned')
+def back_book(request, pk):
+
+    book_instance = get_object_or_404(BookInstance, pk=pk)
+    # If this is a POST request then process the Form data
+    form = BackBookForm(request.POST)
+    if request.method == 'POST':
+        # Check if the form is valid:
+        if form.is_valid():
+            book_instance = get_object_or_404(BookInstance, pk=pk)
+            book_instance.borrower = None
+            book_instance.due_back = None
+            book_instance.status = "a"
+            book_instance.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('all-borrowed'))
+    # If this is a GET (or any other method) create the default form.
+
+    context = {
+        'form': form,
+        'book_instance': book_instance,
+    }
     return render(request, 'borrow_book.html', context)

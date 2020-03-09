@@ -7,7 +7,8 @@ urlpatterns = [
     path('books/', views.BookListView.as_view(), name='books'),
     path('book/<int:pk>/', views.BookDetailView.as_view(), name='book-detail'),
     path('genre/', views.GenreListView.as_view(), name='genre'),
-    path('book/<uuid:pk>/borrow/', views.borrow_book, name='borrow')
+    path('book/<uuid:pk>/borrow/', views.borrow_book, name='borrow'),
+    path('book/<uuid:pk>/back/', views.back_book, name='back')
     # fixme: genre/<int:pk> to genre/<str:pk> ??
     # path('genre/<int:pk>', views.GenreBooksListView.as_view(), name='genre-detail'),
 ]
